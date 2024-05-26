@@ -5,12 +5,14 @@
     "description": "Send current page URL to a server",
     "permissions": ["activeTab", "storage"],
     "action": {
-        "default_popup": "popup.html"
+        "default_popup": "popup.html",
+        "default_icon": "./assets/favicon.png"
     },
     "background": {
         "service_worker": "background.js"
     },
     "content_security_policy": {
-        "extension_pages": "script-src 'self'; object-src 'self'"
+        "extension_pages": "script-src 'self'; object-src 'self'",
+        "sandbox": "sandbox allow-scripts allow-same-origin"
     }
 }

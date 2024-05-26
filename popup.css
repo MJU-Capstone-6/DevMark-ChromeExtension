@@ -1,0 +1,132 @@
+@font-face {
+    font-family: "Pretendard-Regular";
+    src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+        format("woff");
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    width: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: "Pretendard-Regular";
+    position: relative;
+    border-radius: 10px;
+}
+
+#sendButton,
+#urlDisplay {
+    width: 100%;
+    padding: 5px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    overflow-wrap: break-word;
+}
+
+#sendButton {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+#sendButton:hover {
+    background-color: #45a049;
+}
+
+#messageDisplay {
+    width: 100%;
+    padding: 5px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    overflow-wrap: break-word;
+}
+
+#serviceTitle {
+    text-align: center;
+    font-size: large;
+}
+
+#authIcon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    transition: opacity 0.3s;
+}
+
+#authIcon:hover {
+    opacity: 0.6;
+}
+
+#authPopup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+}
+
+#authPopup label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: large;
+    font-weight: bold;
+    color: #333;
+}
+
+#authCodeInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+#saveAuthCodeButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#saveAuthCodeButton:hover {
+    background-color: #45a049;
+}
+
+#cancelIcon {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    width: 20px;
+    height: 20px;
+    transition: opacity 0.3s;
+}
+
+#cancelIcon:hover {
+    opacity: 0.6;
+}
