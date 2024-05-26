@@ -7,28 +7,34 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         const requestData = request.data;
         const configUrl = chrome.runtime.getURL('config.txt');
 
+        console.log(requestData)
+
         fetch(configUrl)
             .then(response => response.text())
             .then(baseUrl => {
-                fetch(`${baseUrl}/api/v1/code/predict`, {
+                fetch(`${baseUrl}/api/v1/code/predict?domain=${requestData.urlDomain}`, {
                     method: "POST",
-                    mode: "no-cors",
-                    body: JSON.stringify(requestData),
+                    mode: "cors",
+                    body: JSON.stringify({code: requestData.code, link: requestData.link}),
                 })
-                .then((response) => {
+                .then((response) => { 
                     if (response.ok) {
                         return response.json();
+                    } else {
+                        return response.json().then((errorData) => {
+                            throw new Error(errorData.msg || '네트워크 응답이 올바르지 않습니다.');
+                        });
                     }
-                    throw new Error('네트워크 응답이 올바르지 않습니다.');
                 })
-                .then((data) => {
-                    sendResponse({ success: true, data: data });
-                })
+                .then(responseData => {console.log(responseData); return responseData;})
+                .then(data => sendResponse({success: true, data: data}))
                 .catch((error) => {
+                    console.error("Error in sendApiRequest:", error);
                     sendResponse({ success: false, error: error.message });
                 });
             })
             .catch(error => {
+                console.error("Error in sendApiRequest:", error);
                 sendResponse({ success: false, error: error.message });
             });
 
@@ -44,23 +50,26 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
         fetch(configUrl)
             .then(response => response.text())
             .then(baseUrl => {
-                var url = `${baseUrl}/api/v1/code?code=${authCode}`;
-
-                fetch(url)
+                fetch( `${baseUrl}/api/v1/code?code=${authCode}`)
                     .then(response => {
                         if (response.ok) {
                             return response.json();
+                        } else {
+                            return response.json().then((errorData) => {
+                                throw new Error(errorData.msg || '네트워크 응답이 올바르지 않습니다.');
+                            });
                         }
-                        throw new Error('네트워크 응답이 올바르지 않습니다.');
                     })
                     .then((data) => {
                         sendResponse({ success: true, data: data });
                     })
                     .catch((error) => {
+                        console.error("Error in executeRequest:", error);
                         sendResponse({ success: false, error: error.message });
                     });
             })
             .catch(error => {
+                console.error("Error in executeRequest:", error);
                 sendResponse({ success: false, error: error.message });
             });
 

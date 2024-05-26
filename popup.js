@@ -26,7 +26,7 @@ document.getElementById("sendButton").addEventListener("click", function () {
                 link: currentPageUrl
             };
 
-            chrome.runtime.sendMessage({ action: "sendApiRequest", data: requestData }, function(response) {
+            chrome.runtime.sendMessage({ action: "sendApiRequest", data: { code: authCode, link: currentPageUrl, urlDomain: supportedDomains.find(domain => urlDomain.includes(domain))}, }, function(response) {
                 if (response.success) {
                     messageDisplay.textContent = "북마크 성공!";
                     messageDisplay.style.color = "green";
@@ -58,14 +58,19 @@ document.getElementById("authIcon").addEventListener("click", function () {
 
 document.getElementById("saveAuthCodeButton").addEventListener("click", function () {
     var authCode = document.getElementById("authCodeInput").value;
+    var authMessageDisplay = document.getElementById("authMessageDisplay");
     chrome.storage.local.set({ authCode: authCode }, function () {
         console.log("Auth code saved:", authCode);
 
         chrome.runtime.sendMessage({ action: "executeRequest", authCode: authCode }, function(response) {
-            console.log("Request executed:", response);
+            if (response.success) {
+                authMessageDisplay.textContent = `선택된 워크스페이스: ${response.data.workspace_name}`;
+                authMessageDisplay.style.color = "green";
+            } else {
+                authMessageDisplay.textContent = "에러:" + response.error;
+                authMessageDisplay.style.color = "red";
+            }
         });
-
-        // alert("인증 코드가 저장되었습니다.");
     });
 });
 
