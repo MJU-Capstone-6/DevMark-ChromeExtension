@@ -10,7 +10,7 @@ document.getElementById("sendButton").addEventListener("click", function () {
             document.body.appendChild(messageDisplay);
         }
 
-        var supportedDomains = ["velog", "tistory", "medium", "github.io"];
+        var supportedDomains = ["velog", "tistory", "medium", "github"];
         var urlDomain = new URL(currentPageUrl).hostname;
 
         if (!supportedDomains.some(domain => urlDomain.includes(domain))) {
