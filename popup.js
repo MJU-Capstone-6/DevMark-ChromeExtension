@@ -26,7 +26,7 @@ document.getElementById("sendButton").addEventListener("click", function () {
                 link: currentPageUrl
             };
 
-            chrome.runtime.sendMessage({ action: "sendApiRequest", data: { code: authCode, link: currentPageUrl, urlDomain: supportedDomains.find(domain => urlDomain.includes(domain))}, }, function(response) {
+            chrome.runtime.sendMessage({ action: "sendApiRequest", data: requestData, }, function(response) {
                 if (response.success) {
                     messageDisplay.textContent = "북마크 성공!";
                     messageDisplay.style.color = "green";

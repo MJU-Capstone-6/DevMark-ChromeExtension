@@ -12,12 +12,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         fetch(configUrl)
             .then(response => response.text())
             .then(baseUrl => {
-                fetch(`${baseUrl}/api/v1/code/predict?domain=${requestData.urlDomain}`, {
+                fetch(`${baseUrl}/api/v1/code/predict`, {
                     method: "POST",
                     mode: "cors",
-                    body: JSON.stringify({code: requestData.code, link: requestData.link}),
+                    body: JSON.stringify({code: requestData.code, link: requestData.link})
                 })
-                .then((response) => { 
+                .then((response) => {
                     if (response.ok) {
                         return response.json();
                     } else {
